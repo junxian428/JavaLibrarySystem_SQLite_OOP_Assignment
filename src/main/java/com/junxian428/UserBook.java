@@ -142,4 +142,49 @@ public class UserBook {
         return bookname;
     }
 
+
+    public void addUserBook(int id, int UserID){
+        Connection connection = null;
+
+        try {
+            // create a database connection
+            connection = DriverManager.getConnection("jdbc:sqlite:User.db");
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30); // set timeout to 30 sec.
+            ResultSet rs = statement.executeQuery("select * from User");
+            int total_Count = 0;
+            String INPUT;
+            while (rs.next()) {
+                // read the result set
+                //System.out.println("id = " + rs.getInt("id"));
+                //System.out.println("name = " + rs.getString("username"));
+                total_Count += 1;
+            }
+            total_Count += 1;
+
+            //INSERT INTO User (id, username, password) VALUES (5, "junxian05", "123456789");
+            statement.executeUpdate("insert into User_Book (id,bookid, userid) values ("+ total_Count + ", "+ id + ","+ UserID+  " );");
+
+            System.out.println("Update Successfully...");
+            System.out.println();
+            System.out.println();
+            System.out.println();
+
+        } catch (SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+        } finally {
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                // connection close failed.
+                System.err.println(e.getMessage());
+            }
+        }
+
+
+    }
+
 }

@@ -137,6 +137,50 @@ public class BookList extends UserList{
     }
 
 
+    public String getBookTitleByID(int id){
+        String booktitle= "";
+        Connection connection = null;
+        try {
+            // create a database connection
+            connection = DriverManager.getConnection("jdbc:sqlite:User.db");
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30); // set timeout to 30 sec.
+            ResultSet rs = statement.executeQuery("select title from Book where id=" + id);
+            int increment_Count = 0;
+  
+            // add all database data into array
+            while (rs.next()) {
+                // read the result set
+                //System.out.println("id = " + rs.getInt("id"));
+                //System.out.println("name = " + rs.getString("username"));
+                booktitle= rs.getString("title");
+                //System.out.println(this.password[increment_Count]);
+                increment_Count += 1;
+            }
+            //INSERT INTO User (id, username, password) VALUES (5, "junxian05", "123456789");
+    
+            return booktitle;
+
+        } catch (SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+        } finally {
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                // connection close failed.
+                System.err.println(e.getMessage());
+            }
+        }
+
+        return booktitle;
+
+
+    }
+
+
 
 
 }

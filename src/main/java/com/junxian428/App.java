@@ -107,10 +107,50 @@ public class App{
                 switch( bookServiceInput){
                     case 1:
                         System.out.println("Borrow Book Service");
+                        System.out.println("Which book you want to borrow? (insert the number)");
+                        Scanner borrowBookNumber = new Scanner(System.in);
+                        try{
+                            int bookNo = borrowBookNumber.nextInt();
+                            for (int element: booklist.getArray()) {
+                                if(element == bookNo){  
+                                    System.out.println("Book is found!");
+                                    System.out.println("Do you really want to borrow this book :\n" +booklist.getBookTitleByID(bookNo) + " ?");
+                                    System.out.println("YES OR NO");
+                                    Scanner userConfirm = new Scanner(System.in);
+                                    String confirm = userConfirm.next();
+                                    if(confirm.equals("YES") || confirm.equals("yes") || confirm.equals("Y") ||confirm.equals("y")){
+                                        System.out.println("You are going to borrow this book... ... ...");
+                                        UserBook userbook = new UserBook();
+                                        userbook.addUserBook(bookNo,user.getUserID(username));
+
+                                    } else{
+                                        System.out.println("Borrow Book activity is interrupt or stopped");
+                                    }
+                                }
+                            }
+
+                        }catch (Exception e){
+                            System.out.println(e);
+
+                        }
+
                         break;
 
                     case 2:
                         System.out.println("Reserve Book Service");
+                        ReservedBook reservedBook = new ReservedBook();
+                        for (String element: reservedBook.getListOfReservedBook()) {
+                            System.out.println(element);
+                        }
+                        System.out.println("Enter the Book ID to check whether is it to be reserved or not? ");
+                        Scanner checkerForReseved = new Scanner(System.in);
+                        try{
+                            int check = checkerForReseved.nextInt();
+                            System.out.println(reservedBook.getBookTitleByID(check) + " Condition: " + reservedBook.returnCondition(check));
+                        }catch(Exception e){    
+                            System.out.println(e);
+                        }
+                        // Display reserved book condition
                         break;
 
                     case 3:
@@ -206,6 +246,11 @@ public class App{
 
     }
 
+
+
+    
+      
+
     public static void AdminPortal() throws ClassNotFoundException{
         System.out.println("____________________________");
         System.out.println("Please enter your username: ");
@@ -222,9 +267,121 @@ public class App{
             System.out.println("Registered User Account");
             System.out.println("");
             //
-            DisplayUser();                   
+            DisplayUser();         
+            System.out.println("_____________________________________________________");          
             
-      
+            System.out.println("_________Privilege Right_____________________________");   
+            AdminImpl adminImpl_display = new AdminImpl();
+            adminImpl_display.adminPrivilegeDisclaimer();
+            System.out.println("\n\n\n");
+            System.out.println("1- Remove Borrow Status "); 
+            System.out.println("2- Add Borrow Status"); 
+
+            System.out.println("3- Delete Reserve Status"); 
+            System.out.println("4- Add Reserve Status"); 
+            System.out.println("5- Exit");
+            System.out.println("\n\n\n");
+            System.out.println("Insert number (1 -5 )");
+            Scanner adminSelection = new Scanner(System.in);
+            int inputSelection = 0;
+            do{
+                inputSelection = adminSelection.nextInt();
+                try{    
+                    switch(inputSelection){
+                        case 1:
+                            System.out.println("\n\nRemove Borrow Status");
+                            System.out.println("What BOOK ID is returned by user? ");
+                            Scanner BookIDGet = new Scanner(System.in);
+                            try{
+                                int BookID = BookIDGet.nextInt();
+                                try{
+                                    System.out.println("What USER ID is returned by user? ");
+                                    Scanner userIDGet = new Scanner(System.in);
+                                    int UserID = userIDGet.nextInt();
+                                    AdminImpl adminImpl = new AdminImpl();
+                                    adminImpl.RemoveBorrowStatus(BookID, UserID);
+                                }catch(Exception e){
+                                    System.out.println(e);
+                                }
+                               
+                            }catch(Exception e){
+                                System.out.println(e);
+                            }
+                       
+
+                            break;
+                        case 2:
+                            System.out.println("\n\nAdd Borrow Status");
+                            System.out.println("What BOOK ID is borrowed by user? ");
+                            Scanner BorrowedBookIDGet = new Scanner(System.in);
+                            try{
+                                int BookID = BorrowedBookIDGet.nextInt();
+                                try{
+                                    System.out.println("What is USER ID? ");
+                                    Scanner userIDGet = new Scanner(System.in);
+                                    int UserID = userIDGet.nextInt();
+                                    AdminImpl adminImpl = new AdminImpl();
+                                    adminImpl.AddBorrowStatus(BookID, UserID);
+                                }catch(Exception e){
+                                    System.out.println(e);
+                                }
+                               
+                            }catch(Exception e){
+                                System.out.println(e);
+                            }
+                       
+                            break;
+                        case 3:                     
+                            System.out.println("3- Delete Reserve Status"); 
+                            System.out.println("What BOOK ID is reveresed by user? ");
+                            Scanner ReservedBookIDGet = new Scanner(System.in);
+                            try{
+                                int BookID = ReservedBookIDGet.nextInt();
+                                try{
+                                    System.out.println("What is USER ID are going to be delete? ");
+                                    Scanner userIDGet = new Scanner(System.in);
+                                    int UserID = userIDGet.nextInt();
+                                    AdminImpl adminImpl = new AdminImpl();
+                                    adminImpl.DeleteReserveStatus(BookID, UserID);
+                                }catch(Exception e){
+                                    System.out.println(e);
+                                }
+                               
+                            }catch(Exception e){
+                                System.out.println(e);
+                            }
+                            break;
+                        case 4:
+                            System.out.println("4- Add Reserve Status"); 
+                            System.out.println("What BOOK ID is reveresed by user? ");
+                            Scanner AddReservedBookIDGet = new Scanner(System.in);
+                            try{
+                                int BookID = AddReservedBookIDGet.nextInt();
+                                try{
+                                    System.out.println("What is USER ID are going to be added? ");
+                                    Scanner userIDGet = new Scanner(System.in);
+                                    int UserID = userIDGet.nextInt();
+                                    AdminImpl adminImpl = new AdminImpl();
+                                    adminImpl.AddReservedStatus(BookID, UserID);
+                                }catch(Exception e){
+                                    System.out.println(e);
+                                }
+                               
+                            }catch(Exception e){
+                                System.out.println(e);
+                            }
+
+                            break;
+                        case 5: 
+                            System.out.println("Exiting the program...");
+                            break;
+                        default:
+                            break;
+                    }
+                }catch(Exception e){
+                    System.out.println(e);
+                }
+            }while(inputSelection != 5);
 
             //
         }
