@@ -1,0 +1,18 @@
+INSERT INTO User (id, username, password) VALUES (1, "junxian01", "123456789");
+INSERT INTO User (id, username, password) VALUES (2, "junxian02", "123456789");
+INSERT INTO User (id, username, password) VALUES (3, "junxian03", "123456789");
+INSERT INTO User (id, username, password) VALUES (4, "junxian04", "123456789");
+INSERT INTO User (id, username, password) VALUES (5, "junxian05", "123456789");
+
+INSERT INTO Book (id, title) VALUES (1, "Computer Reference Book");
+INSERT INTO Book (id, title) VALUES (2, "Ethnical Hacker Reference Book");
+INSERT INTO Book (id, title) VALUES (3, "Java Programming Reference Book");
+
+INSERT INTO Book (id, title) VALUES (4, "Operating System Reference Book");
+
+INSERT INTO Book (id, title) VALUES (5, "Assembly Reference Book");
+INSERT INTO Book (id, title) VALUES (6, "System Design Reference Book");
+
+INSERT INTO User_Book (id, bookid, userid) VALUES (1, 1,1);
+INSERT INTO User_Book (id, bookid, userid) VALUES (2, 2,1);
+INSERT INTO User_Book (id, bookid, userid) VALUES (3, 2,2);
